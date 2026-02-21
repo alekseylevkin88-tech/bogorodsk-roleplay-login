@@ -84,8 +84,8 @@
             const { data, error } = await supabaseClient.auth.signInWithOAuth({
                 provider: 'discord',
                 options: {
-                    // Указываем, куда вернуть пользователя после входа
-                    redirectTo: window.location.origin + window.location.pathname.replace('login.html', 'dashboard.html')
+                    // Теперь перенаправляем игрока сразу в репозиторий с анкетами
+                    redirectTo: 'https://alekseylevkin88-tech.github.io/apply-bogorodsk-rp/'
                 }
             });
 
