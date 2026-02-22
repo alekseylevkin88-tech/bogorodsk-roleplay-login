@@ -7,11 +7,11 @@
     <style>
         /* Основные цвета проекта */
         :root {
-            --bg-color: #040911; 
-            --card-bg: #0a1120; 
-            --accent-blue: #3b82f6; 
-            --text-muted: #64748b; 
-            --border-color: rgba(59, 130, 246, 0.15); 
+            --bg-color: #040911; /* Глубокий темный фон */
+            --card-bg: #0a1120; /* Фон карточки */
+            --accent-blue: #3b82f6; /* Ярко-синий акцент */
+            --text-muted: #64748b; /* Серый текст */
+            --border-color: rgba(59, 130, 246, 0.15); /* Слабая синяя рамка */
             --discord-color: #5865F2;
         }
 
@@ -70,9 +70,7 @@
             letter-spacing: 2px;
             margin-bottom: 15px;
             position: relative;
-            text-transform: uppercase;
         }
-        /* ЗДЕСЬ БЫЛ .tag::before, Я ЕГО УДАЛИЛ */
 
         h1 { 
             font-size: 3rem; 
@@ -97,6 +95,7 @@
         h2 { font-size: 1.5rem; margin-bottom: 15px; color: white; }
         p.desc { color: var(--text-muted); line-height: 1.6; margin-bottom: 30px; font-size: 0.95rem; }
 
+        /* Кнопки */
         .btn-container { display: flex; gap: 15px; flex-wrap: wrap; }
         
         .btn { 
@@ -119,7 +118,8 @@
 
         footer { margin-top: auto; padding: 40px; color: #334155; font-size: 12px; }
 
-        #user-view, .btn-apply, #nav-apply { display: none; }
+        /* Скрытие блоков */
+        #user-view, .btn-apply { display: none; }
     </style>
 </head>
 <body>
@@ -128,7 +128,6 @@
         <a href="https://alekseylevkin88-tech.github.io/staff-bogorodsk-roleplay/">Команда проекта</a>
         <a href="https://alekseylevkin88-tech.github.io/bogorodsk-roleplay-rules-official/">Правила</a>
         <a href="https://alekseylevkin88-tech.github.io/bogorodsk-official-guidelines/">Основные положения</a>
-        <a href="https://alekseylevkin88-tech.github.io/apply-bogorodsk-rp/" id="nav-apply">Анкеты</a>
     </nav>
 
     <div class="container">
@@ -138,7 +137,7 @@
         <div class="auth-card">
             <div id="guest-view">
                 <h2>АВТОРИЗАЦИЯ</h2>
-                <p class="desc">Для доступа к функционалу портала, подаче анкет и закрытым разделам необходимо подтвердить свою личность через Discord.</p>
+                <p class="desc">Для доступа к функционалу портала, подаче анкет в администрацию и закрытым разделам необходимо подтвердить свою личность через Discord.</p>
                 <div class="btn-container">
                     <a href="https://discord.com/api/oauth2/authorize?client_id=1474871995958038709&redirect_uri=https%3A%2F%2Falekseylevkin88-tech.github.io%2Fbogorodsk-roleplay-login%2F&response_type=token&scope=identify" class="btn btn-discord">
                         ВОЙТИ ЧЕРЕЗ DISCORD
@@ -148,9 +147,9 @@
 
             <div id="user-view">
                 <h2 style="color: var(--accent-blue);">УСПЕШНЫЙ ВХОД</h2>
-                <p class="desc">Вы успешно авторизованы. Теперь вам доступны все скрытые разделы портала.</p>
+                <p class="desc">Вы успешно авторизованы. Вам доступны все разделы.</p>
                 <div class="btn-container">
-                     <a href="https://alekseylevkin88-tech.github.io/apply-bogorodsk-rp/" class="btn btn-apply" style="display: flex;">
+                     <a href="#" id="apply-btn" class="btn btn-apply" style="display: flex;">
                         ПЕРЕЙТИ К АНКЕТЕ
                     </a>
                 </div>
@@ -170,11 +169,13 @@
             if (accessToken) {
                 document.getElementById('guest-view').style.display = 'none';
                 document.getElementById('user-view').style.display = 'block';
-                document.getElementById('nav-apply').style.display = 'block';
+
+                // Ссылка теперь передает токен, чтобы у других не было ошибки сессии
+                document.getElementById('apply-btn').href = "https://alekseylevkin88-tech.github.io/apply-bogorodsk-rp/#access_token=" + accessToken;
+
                 history.replaceState(null, null, ' ');
             }
         }
     </script>
-
 </body>
 </html>
