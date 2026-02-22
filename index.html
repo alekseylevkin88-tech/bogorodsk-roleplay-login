@@ -5,13 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Богородск RolePlay - Авторизация</title>
     <style>
-        /* Основные цвета проекта */
         :root {
-            --bg-color: #040911; /* Глубокий темный фон */
-            --card-bg: #0a1120; /* Фон карточки */
-            --accent-blue: #3b82f6; /* Ярко-синий акцент */
-            --text-muted: #64748b; /* Серый текст */
-            --border-color: rgba(59, 130, 246, 0.15); /* Слабая синяя рамка */
+            --bg-color: #040911; 
+            --card-bg: #0a1120; 
+            --accent-blue: #3b82f6; 
+            --text-muted: #64748b; 
+            --border-color: rgba(59, 130, 246, 0.15); 
             --discord-color: #5865F2;
         }
 
@@ -27,7 +26,6 @@
             min-height: 100vh; 
         }
 
-        /* Навигация */
         nav { 
             width: 100%; 
             padding: 25px 0; 
@@ -54,7 +52,6 @@
 
         nav a:hover, nav a.active { color: var(--accent-blue); }
 
-        /* Основной контент */
         .container { 
             margin-top: 180px; 
             max-width: 700px; 
@@ -82,7 +79,6 @@
             text-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
         }
 
-        /* Карточка авторизации */
         .auth-card { 
             background: var(--card-bg); 
             border: 1px solid var(--border-color); 
@@ -95,7 +91,6 @@
         h2 { font-size: 1.5rem; margin-bottom: 15px; color: white; }
         p.desc { color: var(--text-muted); line-height: 1.6; margin-bottom: 30px; font-size: 0.95rem; }
 
-        /* Кнопки */
         .btn-container { display: flex; gap: 15px; flex-wrap: wrap; }
         
         .btn { 
@@ -113,13 +108,12 @@
         }
 
         .btn-discord { background: var(--discord-color); color: white; flex: 1; }
-        .btn-apply { background: var(--accent-blue); color: white; flex: 1; }
+        .btn-apply { background: var(--accent-blue); color: white; flex: 1; display: none; }
         .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px -10px rgba(59, 130, 246, 0.5); }
 
         footer { margin-top: auto; padding: 40px; color: #334155; font-size: 12px; }
 
-        /* Скрытие блоков */
-        #user-view, .btn-apply { display: none; }
+        #user-view { display: none; }
     </style>
 </head>
 <body>
@@ -137,7 +131,7 @@
         <div class="auth-card">
             <div id="guest-view">
                 <h2>АВТОРИЗАЦИЯ</h2>
-                <p class="desc">Для доступа к функционалу портала, подаче анкет в администрацию и закрытым разделам необходимо подтвердить свою личность через Discord.</p>
+                <p class="desc">Для доступа к функционалу портала, подаче анкет и закрытым разделам необходимо подтвердить свою личность через Discord.</p>
                 <div class="btn-container">
                     <a href="https://discord.com/api/oauth2/authorize?client_id=1474871995958038709&redirect_uri=https%3A%2F%2Falekseylevkin88-tech.github.io%2Fbogorodsk-roleplay-login%2F&response_type=token&scope=identify" class="btn btn-discord">
                         ВОЙТИ ЧЕРЕЗ DISCORD
@@ -147,7 +141,7 @@
 
             <div id="user-view">
                 <h2 style="color: var(--accent-blue);">УСПЕШНЫЙ ВХОД</h2>
-                <p class="desc">Вы успешно авторизованы. Вам доступны все разделы.</p>
+                <p class="desc">Вы успешно авторизованы. Теперь вам доступен переход к разделу анкет.</p>
                 <div class="btn-container">
                      <a href="#" id="apply-btn" class="btn btn-apply" style="display: flex;">
                         ПЕРЕЙТИ К АНКЕТЕ
@@ -170,8 +164,10 @@
                 document.getElementById('guest-view').style.display = 'none';
                 document.getElementById('user-view').style.display = 'block';
 
-                // Ссылка теперь передает токен, чтобы у других не было ошибки сессии
-                document.getElementById('apply-btn').href = "https://alekseylevkin88-tech.github.io/apply-bogorodsk-rp/#access_token=" + accessToken;
+                const applyBtn = document.getElementById('apply-btn');
+                // Передаем токен в URL, чтобы сайт с анкетами его увидел
+                applyBtn.href = "https://alekseylevkin88-tech.github.io/apply-bogorodsk-rp/#access_token=" + accessToken;
+                applyBtn.style.display = "flex";
 
                 history.replaceState(null, null, ' ');
             }
