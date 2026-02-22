@@ -70,8 +70,9 @@
             letter-spacing: 2px;
             margin-bottom: 15px;
             position: relative;
+            text-transform: uppercase;
         }
-        .tag::before { content: '●'; margin-right: 8px; }
+        /* ЗДЕСЬ БЫЛ .tag::before, Я ЕГО УДАЛИЛ */
 
         h1 { 
             font-size: 3rem; 
@@ -96,7 +97,6 @@
         h2 { font-size: 1.5rem; margin-bottom: 15px; color: white; }
         p.desc { color: var(--text-muted); line-height: 1.6; margin-bottom: 30px; font-size: 0.95rem; }
 
-        /* Кнопки */
         .btn-container { display: flex; gap: 15px; flex-wrap: wrap; }
         
         .btn { 
@@ -119,7 +119,6 @@
 
         footer { margin-top: auto; padding: 40px; color: #334155; font-size: 12px; }
 
-        /* Скрытие блоков */
         #user-view, .btn-apply, #nav-apply { display: none; }
     </style>
 </head>
@@ -139,7 +138,7 @@
         <div class="auth-card">
             <div id="guest-view">
                 <h2>АВТОРИЗАЦИЯ</h2>
-                <p class="desc">Для доступа к функционалу портала, подаче анкет в администрацию и закрытым разделам необходимо подтвердить свою личность через Discord.</p>
+                <p class="desc">Для доступа к функционалу портала, подаче анкет и закрытым разделам необходимо подтвердить свою личность через Discord.</p>
                 <div class="btn-container">
                     <a href="https://discord.com/api/oauth2/authorize?client_id=1474871995958038709&redirect_uri=https%3A%2F%2Falekseylevkin88-tech.github.io%2Fbogorodsk-roleplay-login%2F&response_type=token&scope=identify" class="btn btn-discord">
                         ВОЙТИ ЧЕРЕЗ DISCORD
@@ -169,12 +168,9 @@
             const accessToken = fragment.get('access_token');
             
             if (accessToken) {
-                // Скрываем вход, показываем приветствие и анкету
                 document.getElementById('guest-view').style.display = 'none';
                 document.getElementById('user-view').style.display = 'block';
-                // Показываем ссылку в навигации
                 document.getElementById('nav-apply').style.display = 'block';
-                
                 history.replaceState(null, null, ' ');
             }
         }
